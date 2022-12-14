@@ -11,8 +11,8 @@ namespace AppPasarApplication.Default_Services.CustomerServices
 {
     public interface ICustomerAppService
     {
-        Customers Create(CustomerDto model);
-        Customers Delete(int id);
-        Customers Update(CustomerDto model);
+        Customer Create(CreateCustomerDto model);
+        Customer Delete(int id);
+        Customer Update(UpdateCustomerDto model);
     }
 }

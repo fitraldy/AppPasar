@@ -18,7 +18,7 @@ namespace AppPasarAPi.Controllers
         }
 
         [HttpPost("CreateTransaction")]
-        public IActionResult Create([FromBody] TransactionDto model)
+        public IActionResult Create([FromBody] CreateTransactionDto model)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace AppPasarAPi.Controllers
 
 
         [HttpPatch("UpdateTransaction")]
-        public IActionResult Update([FromBody] TransactionDto model)
+        public IActionResult Update([FromBody] UpdateTransactionDto model)
         {
             try
             {

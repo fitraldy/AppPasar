@@ -22,7 +22,7 @@ namespace AppPasarDB.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AppPasarDB.Models.Customers", b =>
+            modelBuilder.Entity("AppPasarDB.Models.Customer", b =>
                 {
                     b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
@@ -30,30 +30,53 @@ namespace AppPasarDB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductPrice")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductQty")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SuppliersSupplierId")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustomerId");
-
-                    b.HasIndex("SuppliersSupplierId");
 
                     b.ToTable("Customer", "dbo");
                 });
 
-            modelBuilder.Entity("AppPasarDB.Models.Suppliers", b =>
+            modelBuilder.Entity("AppPasarDB.Models.Market", b =>
+                {
+                    b.Property<int>("MarketId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarketId"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MarketName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MarketNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MarketId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Market", "dbo");
+                });
+
+            modelBuilder.Entity("AppPasarDB.Models.Supplier", b =>
                 {
                     b.Property<int>("SupplierId")
                         .ValueGeneratedOnAdd()
@@ -61,11 +84,9 @@ namespace AppPasarDB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"));
 
-                    b.Property<int>("ProductPrice")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductQty")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SupplierName")
                         .IsRequired()
@@ -84,26 +105,36 @@ namespace AppPasarDB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TransactionId"));
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Total")
+                    b.Property<int>("SupplierId")
                         .HasColumnType("int");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
 
                     b.Property<string>("TransactionCode")
                         .IsRequired()
-                        .HasColumnType("Nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("TransactionDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("TransactionId");
 
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("SupplierId");
+
                     b.ToTable("Transaction", "dbo");
                 });
 
-            modelBuilder.Entity("AppPasarDB.Models.TransactionDetails", b =>
+            modelBuilder.Entity("AppPasarDB.Models.TransactionDetail", b =>
                 {
                     b.Property<int>("TransactionDetailId")
                         .ValueGeneratedOnAdd()
@@ -111,68 +142,72 @@ namespace AppPasarDB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TransactionDetailId"));
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomersCustomerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Qty")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubTotal")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TransactionsId")
                         .HasColumnType("int");
 
                     b.HasKey("TransactionDetailId");
 
-                    b.HasIndex("CustomersCustomerId");
-
                     b.HasIndex("TransactionsId");
 
-                    b.ToTable("TransactionDetails");
+                    b.ToTable("TransactionDetail", "dbo");
                 });
 
-            modelBuilder.Entity("AppPasarDB.Models.Customers", b =>
+            modelBuilder.Entity("AppPasarDB.Models.Market", b =>
                 {
-                    b.HasOne("AppPasarDB.Models.Suppliers", "Suppliers")
-                        .WithMany("Customers")
-                        .HasForeignKey("SuppliersSupplierId")
+                    b.HasOne("AppPasarDB.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Suppliers");
+                    b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("AppPasarDB.Models.TransactionDetails", b =>
+            modelBuilder.Entity("AppPasarDB.Models.Transaction", b =>
                 {
-                    b.HasOne("AppPasarDB.Models.Customers", "Customers")
-                        .WithMany("TransactionDetails")
-                        .HasForeignKey("CustomersCustomerId")
+                    b.HasOne("AppPasarDB.Models.Customer", "Customer")
+                        .WithMany("Transactions")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AppPasarDB.Models.Supplier", "Supplier")
+                        .WithMany("Transactions")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("AppPasarDB.Models.TransactionDetail", b =>
+                {
                     b.HasOne("AppPasarDB.Models.Transaction", "Transactions")
                         .WithMany("TransactionDetails")
                         .HasForeignKey("TransactionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customers");
-
                     b.Navigation("Transactions");
                 });
 
-            modelBuilder.Entity("AppPasarDB.Models.Customers", b =>
+            modelBuilder.Entity("AppPasarDB.Models.Customer", b =>
                 {
-                    b.Navigation("TransactionDetails");
+                    b.Navigation("Transactions");
                 });
 
-            modelBuilder.Entity("AppPasarDB.Models.Suppliers", b =>
+            modelBuilder.Entity("AppPasarDB.Models.Supplier", b =>
                 {
-                    b.Navigation("Customers");
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("AppPasarDB.Models.Transaction", b =>

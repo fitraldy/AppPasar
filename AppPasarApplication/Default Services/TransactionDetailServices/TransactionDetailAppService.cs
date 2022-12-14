@@ -1,6 +1,7 @@
 ﻿using AppPasarApplication.Default_Services.TransactionDetailServices.Dto;
 using AppPasarApplication.Helper;
 using AppPasarDB.Context;
+using AppPasarDB.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,17 +27,19 @@ namespace AppPasarApplication.Default_Services.TransactionDetailServices
         {
             var transDetail = new PagedResult<TransactionDetailDto>
             {
-                Data = (from transactionDetail in _pasarContext.TransactionDetails
+                Data = (from transaction in _pasarContext.Transactions
                         select new TransactionDetailDto
                         {
-                            TransactionDetailId = transactionDetail.TransactionDetailId,
-                            CustomerId = transactionDetail.CustomerId,
-                            Qty = transactionDetail.Qty,
-                            SubTotal = transactionDetail.SubTotal,
+                            TransactionId = transaction.TransactionId,
+                            CustomerId = transaction.CustomerId,
+                            TransactionCode = transaction.TransactionCode,
+                            TransactionDate = transaction.TransactionDate,
+                            Total = transaction.Total,
+                            Description = transaction.Description
                         })
                                     .Skip(pageInfo.Skip)
                                     .Take(pageInfo.PageSize)
-                                    .OrderBy(w => w.TransactionDetailId),
+                                    .OrderBy(w => w.TransactionDate),
                 Total = _pasarContext.TransactionDetails.Count()
             };
 

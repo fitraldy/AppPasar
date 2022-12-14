@@ -22,7 +22,7 @@ namespace AppPasarAPi.Controllers
 
         [HttpPost("CreateCustomer")]
         [Produces("application/json")]
-        public IActionResult Create([FromBody] CustomerDto model)
+        public IActionResult Create([FromBody] CreateCustomerDto model)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace AppPasarAPi.Controllers
         }
 
         [HttpPatch("UpdateCustomer")]
-        public IActionResult Update([FromBody] CustomerDto model)
+        public IActionResult Update([FromBody] UpdateCustomerDto model)
         {
             try
             {

@@ -13,7 +13,7 @@ namespace AppPasarApplication.Default_Services.TransactionServices
 {
     public interface ITransactionAppService
     {
-        Transaction Create(TransactionDto model);
-        Transaction Update(TransactionDto model);
+        Transaction Create(CreateTransactionDto model);
+        Transaction Update(UpdateTransactionDto model);
     }
 }

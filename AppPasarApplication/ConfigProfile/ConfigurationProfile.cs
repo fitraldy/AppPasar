@@ -1,4 +1,5 @@
 ﻿using AppPasarApplication.Default_Services.CustomerServices.Dto;
+using AppPasarApplication.Default_Services.MarketServices.Dto;
 using AppPasarApplication.Default_Services.SupplierServices.Dto;
 using AppPasarApplication.Default_Services.TransactionDetailServices.Dto;
 using AppPasarApplication.Default_Services.TransactionServices.Dto;
@@ -17,17 +18,35 @@ namespace AppPasarApplication.ConfigProfile
     {
         public ConfigurationProfile()
         {
-            CreateMap<Customers, CustomerDto>();
-            CreateMap<CustomerDto, Customers>();
+            CreateMap<Customer, CreateCustomerDto>();
+            CreateMap<CreateCustomerDto, Customer>();
 
-            CreateMap<Suppliers, SupplierDto>();
-            CreateMap<SupplierDto, Suppliers>();
+            CreateMap<Customer, UpdateCustomerDto>();
+            CreateMap<UpdateCustomerDto, Customer>();
 
-            CreateMap<Transaction, TransactionDto>();
-            CreateMap<TransactionDto, Transaction>();
+            CreateMap<Supplier, CreateSupplierDto>();
+            CreateMap<CreateSupplierDto, Supplier>();
 
-            CreateMap<TransactionDetails, TransactionDetailDto>();
-            CreateMap<TransactionDetailDto, TransactionDetails>();
+            CreateMap<Supplier, UpdateSupplierDto>();
+            CreateMap<UpdateSupplierDto, Supplier>();
+
+            CreateMap<Market, CreateMarketDto>();
+            CreateMap<CreateMarketDto, Market>();
+
+            CreateMap<Market, MarketListDto>();
+            CreateMap<MarketListDto, Market>();
+
+            CreateMap<Market, UpdateMarketDto>();
+            CreateMap<UpdateMarketDto, Market>();
+
+            CreateMap<Transaction, CreateTransactionDto>();
+            CreateMap<CreateTransactionDto, Transaction>();
+
+            CreateMap<Transaction, UpdateTransactionDto>();
+            CreateMap<UpdateTransactionDto, Transaction>();
+
+            CreateMap<TransactionDetail, TransactionDetailDto>();
+            CreateMap<TransactionDetailDto, TransactionDetail>();
         }
     }
 }

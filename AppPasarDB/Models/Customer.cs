@@ -9,19 +9,18 @@ using System.Threading.Tasks;
 
 namespace AppPasarDB.Models
 {
-    [Table("Supplier", Schema = "dbo")]
+    [Table("Customer", Schema = "dbo")]
 
-    public class Suppliers
+    public class Customer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
-        public int SupplierId { get; set; }
-        [Required]
-        public string SupplierName { get; set; }
-        public int ProductPrice { get; set; }
-        public int ProductQty { get; set; }
-        public virtual ICollection<Customers> Customers { get; set; }
+        public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public int Age { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+        public virtual IEnumerable<Transaction> Transactions { get; set; }
 
 
     }

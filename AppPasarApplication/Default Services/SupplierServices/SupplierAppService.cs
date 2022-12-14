@@ -23,16 +23,16 @@ namespace AppPasarApplication.Default_Services.SupplierServices
             _mapper = mapper;
         }
 
-        public Suppliers Create(SupplierDto model)
+        public Supplier Create(CreateSupplierDto model)
         {
-            var supplier = _mapper.Map<Suppliers>(model);
+            var supplier = _mapper.Map<Supplier>(model);
             _pasarContext.Suppliers.Add(supplier);
             _pasarContext.SaveChanges();
 
             return supplier;
         }
 
-        public Suppliers Delete(int id)
+        public Supplier Delete(int id)
         {
             var supplier = _pasarContext.Suppliers.FirstOrDefault(w => w.SupplierId == id);
             _pasarContext.Suppliers.Remove(supplier);
@@ -41,9 +41,9 @@ namespace AppPasarApplication.Default_Services.SupplierServices
             return supplier;
         }
 
-        public Suppliers Update(SupplierDto model)
+        public Supplier Update(UpdateSupplierDto model)
         {
-            var supplier = _mapper.Map<Suppliers>(model);
+            var supplier = _mapper.Map<Supplier>(model);
             _pasarContext.Suppliers.Update(supplier);
             _pasarContext.SaveChanges();
 

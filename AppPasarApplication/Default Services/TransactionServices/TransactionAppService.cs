@@ -22,7 +22,7 @@ namespace AppPasarApplication.Default_Services.TransactionServices
             _mapper = mapper;
         }
 
-        public Transaction Create(TransactionDto model)
+        public Transaction Create(CreateTransactionDto model)
         {
             var transaction = _mapper.Map<Transaction>(model);
             _pasarContext.Transactions.Add(transaction);
@@ -31,7 +31,7 @@ namespace AppPasarApplication.Default_Services.TransactionServices
             return transaction;
         }
 
-        public Transaction Update(TransactionDto model)
+        public Transaction Update(UpdateTransactionDto model)
         {
             var transaction = _mapper.Map<Transaction>(model);
             _pasarContext.Transactions.Update(transaction);

@@ -23,16 +23,16 @@ namespace AppPasarApplication.Default_Services.CustomerServices
             _mapper = mapper;
         }
 
-        public Customers Create(CustomerDto model)
+        public Customer Create(CreateCustomerDto model)
         {
-            var customer = _mapper.Map<Customers>(model);
+            var customer = _mapper.Map<Customer>(model);
             _pasarContext.Customers.Add(customer);
             _pasarContext.SaveChanges();
 
             return customer;
         }
 
-        public Customers Delete(int id)
+        public Customer Delete(int id)
         {
             var customer = _pasarContext.Customers.FirstOrDefault(w => w.CustomerId == id);
             _pasarContext.Customers.Remove(customer);
@@ -41,9 +41,9 @@ namespace AppPasarApplication.Default_Services.CustomerServices
             return customer;
         }
 
-        public Customers Update(CustomerDto model)
+        public Customer Update(UpdateCustomerDto model)
         {
-            var customer = _mapper.Map<Customers>(model);
+            var customer = _mapper.Map<Customer>(model);
             _pasarContext.Customers.Update(customer);
             _pasarContext.SaveChanges();
 

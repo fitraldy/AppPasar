@@ -11,8 +11,8 @@ namespace AppPasarApplication.Default_Services.SupplierServices
 {
     public interface ISupplierAppService
     {
-        Suppliers Create(SupplierDto model);
-        Suppliers Delete(int id);
-        Suppliers Update(SupplierDto model);
+        Supplier Create(CreateSupplierDto model);
+        Supplier Delete(int id);
+        Supplier Update(UpdateSupplierDto model);
     }
 }

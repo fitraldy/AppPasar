@@ -12,9 +12,10 @@ namespace AppPasarDB.Context
     {
         public PasarContext(DbContextOptions<PasarContext> options) : base(options) { }
 
-        public DbSet<Customers> Customers { get; set; }
-        public DbSet<Suppliers> Suppliers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Market> Markets { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<TransactionDetails> TransactionDetails { get; set; }
+        public DbSet<TransactionDetail> TransactionDetails { get; set; }
     }
 }
