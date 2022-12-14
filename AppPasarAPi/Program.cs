@@ -1,6 +1,30 @@
+using AppPasarApplication.ConfigProfile;
+using AppPasarApplication.Default_Services.CustomerServices;
+using AppPasarApplication.Default_Services.SupplierServices;
+using AppPasarApplication.Default_Services.TransactionDetailServices;
+using AppPasarApplication.Default_Services.TransactionServices;
+using AppPasarDB.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// connect DB
+var connectionString = builder.Configuration.GetConnectionString("DBConnection");
+builder.Services.AddDbContext<PasarContext>(option => option.UseSqlServer(connectionString));
+
+// Automapper
+var config = new AutoMapper.MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new ConfigurationProfile());
+});
+var mapper = config.CreateMapper();
+
+//Addservice to conatiner
+builder.Services.AddSingleton(mapper);
+builder.Services.AddTransient<ICustomerAppService, CustomerAppService>();
+builder.Services.AddTransient<ISupplierAppService, SupplierAppService>();
+builder.Services.AddTransient<ITransactionAppService, TransactionAppService>();
+builder.Services.AddTransient<ITransactionDetailAppService, TransactionDetailAppService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
